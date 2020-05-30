@@ -90,7 +90,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-      
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -106,19 +106,19 @@
       };
       /* find the clickable trigger (the element that should react to clicking) */
       /* START: click event listener to trigger */
-      thisProduct.accordionTrigger.addEventListener('click', (e) => {
+      thisProduct.accordionTrigger.addEventListener('click', (el) => {
         /* prevent default action for event */
-        e.preventDefault();
+        el.preventDefault();
         /* toggle active class on element of thisProduct */
         toggleClass(thisProduct.element, 'active');
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
         /* START LOOP: for each active product */
-        activeProducts.forEach((e) => {
+        activeProducts.forEach((el) => {
           /* START: if the active product isn't the element of thisProduct */
-          if (e !== thisProduct.element) {
+          if (el !== thisProduct.element) {
             /* remove class active for the active product */
-            e.classList.remove('active');
+            el.classList.remove('active');
           }
           /* END: if the active product isn't the element of thisProduct */
         });
@@ -168,7 +168,14 @@
             price -= option.price;
           }
 
-        
+          const img = thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`);
+          if (img) {
+            if (isSelected) {
+              img.classList.add(classNames.menuProduct.wrapperActive);
+            } else {
+              img.classList.remove(classNames.menuProduct.wrapperActive);
+            }
+          }
         }
       }
       thisProduct.priceElem.innerHTML = price;
@@ -204,3 +211,5 @@
   
   app.init();
 }
+
+
