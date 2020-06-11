@@ -21,6 +21,8 @@ class Booking {
       wrapper: elemet,
       peopleAmount: elemet.querySelector(select.booking.peopleAmount),
       hoursAmount: elemet.querySelector(select.booking.hoursAmount),
+      datePicker: elemet.querySelector(select.widgets.datePicker.wrapper),
+      hourPicker: elemet.querySelector(select.widgets.hourPicker.wrapper)
     };
   }
 
@@ -28,7 +30,8 @@ class Booking {
     const thisBooking = this;
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
-
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+    thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
   }
 }
 

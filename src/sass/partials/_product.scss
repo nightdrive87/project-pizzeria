@@ -20,7 +20,9 @@
   &__name {
     @extend .h1;
     position: relative;
-    
+    margin: 0;
+    font-weight: $font-semibold;
+    text-transform: uppercase;
   }
 
   &__icon {
@@ -55,6 +57,9 @@
 
   &__params-title {
     @extend .h2;
+    font-size: 14px;
+    font-weight: $font-bold;
+    text-transform: uppercase;
     margin: ($base-size * 2) 0;
   }
 

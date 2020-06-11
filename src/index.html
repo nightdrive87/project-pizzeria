@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="vendor/range-slider.min.css">
 </head>
 <body>
 
@@ -24,13 +26,13 @@
         </div>
         <div id="cart" class="cart">
           <div class="cart__summary">
-            <span class="cart__total-number">5</span>
+            <span class="cart__total-number">0</span>
             <span class="cart__total-price">Total price: $<strong>0</strong></span>
             <i class="fas fa-chevron-down"></i>
             <i class="fas fa-shopping-cart cart__icon"></i>
           </div>
           <div class="cart__content">
-            <form class="cart__order">
+            <form class="cart__order" onsubmit="return false">
               <ul class="cart__order-summary no-spacing">
               </ul>
               <ul class="cart__order-price">
@@ -64,9 +66,10 @@
       <div id="product-list" class="product-list container"></div>
     </section>
     <section id="booking">
-      <div class="booking-wrapper container">klhgjgfdlhjgkgf</div>
+      <div class="booking-wrapper container"></div>
     </section>
   </div>
+
 
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
@@ -78,8 +81,8 @@
             <input type="text" name="date">
           </div>
           <div class="hour-picker range-slider">
-              <div class="output"></div>
-              <label class="booking-option-title">Pick a time</label>
+            <div class="output"></div>
+            <label class="booking-option-title">Pick a time</label>
             <input type="range" name="hour" value="12" min="12" max="24" step="0.5">
           </div>
         </div>
@@ -220,7 +223,7 @@
               <div class="widget-amount"> <!-- widget-amount -->
                 <h3 class="product__params-title">Select quantity</h3>
                 <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
-                <input class="amount" type="text" value="1">
+                <input name="amount" class="amount" type="text">
                 <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
               </div>
               <p class="product__total-price">
@@ -242,6 +245,8 @@
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 </html>
