@@ -40,7 +40,20 @@ const app = {
     const thisApp = this;
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.homeLinks = document.querySelectorAll(select.nav.links_home);
     const idFromHash = window.location.hash.replace('#/', '');
+
+    for (let link of thisApp.homeLinks) {
+      link.addEventListener('click', function (event) {
+        const clickedElement = this;
+        event.preventDefault();
+
+        const id = clickedElement.getAttribute('href').replace('#', '');
+        thisApp.activatePage(id);
+        window.location.hash = '#/' + id;
+      });
+    }
+      
 
     let pageMatchingHash = false;
     for (let page of thisApp.pages) {
