@@ -111,7 +111,9 @@ class Booking {
         thisBooking.booked[date][hourBlock] = [];
       }
 
-      thisBooking.booked[date][hourBlock].push(table);
+      if (!thisBooking.booked[date][hourBlock].includes(table)) {
+        thisBooking.booked[date][hourBlock].push(table);
+      }
     }
   }
 
@@ -193,8 +195,9 @@ class Booking {
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
-
     }
+
+    thisBooking.setBgc();
 
   }
 
@@ -206,10 +209,6 @@ class Booking {
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', () => {
-      thisBooking.updateDOM();
-    });
-
-    thisBooking.dom.datePicker.addEventListener('change', () => {
       thisBooking.updateDOM();
     });
   }
@@ -265,6 +264,61 @@ class Booking {
     fetch(url, options)
       .then(response => response.json())
       .then(() => thisBooking.getData());
+  }
+
+  // HOUR PICKER BACKGROUND
+  countBookedTables(date, hour) {
+    const thisBooking = this;
+    let count = 0;
+
+    if (thisBooking.booked[date]) {
+      for (let table of thisBooking.dom.tables) {
+        const tableId = parseInt(table.getAttribute('data-table'));
+        if (thisBooking.booked[date][hour] && thisBooking.booked[date][hour].includes(tableId)) {
+          ++count;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  convertToColor(tableCount) {
+    if (tableCount === 3) {
+      return settings.colours.red;
+    }
+
+    if (tableCount === 2) {
+      return settings.colours.orange;
+    }
+
+    return settings.colours.green;
+  }
+
+  setBgc() {
+    const thisBooking = this;
+
+    //find rangerSlider
+    thisBooking.dom.form.bgc = thisBooking.dom.form.querySelector(select.widgets.hourPicker.rangeSlider);
+
+    const open = settings.hours.open;
+    const close = settings.hours.close;
+    const linearStyle = [];
+    const hoursCount = close - open;
+
+    for (let hour = open; hour < close; hour += 0.5) {
+      const tableCount = thisBooking.countBookedTables(thisBooking.datePicker.value, hour);
+      const color = thisBooking.convertToColor(tableCount);
+
+      const start = Math.round((hour - open) / hoursCount * 100);
+      const end = Math.round(((hour - open) + 0.5) / hoursCount * 100);
+      linearStyle.push(`${color} ${start}% ${end}%`);
+    }
+
+    const colorStyle = linearStyle.join(', ');
+
+    thisBooking.dom.form.bgc.style.background = 'linear-gradient(to right,' + colorStyle + ')';
+
   }
 }
 

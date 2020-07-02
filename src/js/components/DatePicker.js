@@ -20,7 +20,10 @@ class DatePicker extends BaseWidget {
     flatpickr(thisWidget.dom.input, {
       defaultValue: thisWidget.minDate,
       minDate: thisWidget.minDate,
-      maxDate: thisWidget.maxDate
+      maxDate: thisWidget.maxDate,
+      onChange: function(selectedDates, dateStr) {
+        thisWidget.value = dateStr;
+      },
     });
   }
 
